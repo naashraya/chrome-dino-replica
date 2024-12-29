@@ -126,4 +126,38 @@ class Text{
 
 function SpawnObstacle(){
     let size = RandomIntInRange(20,70);
+    let type = RandomIntInRange(0,1);
+    let obstacle = new obstacle(canvas.width + size, canvas.height - size,size,size,'#2484E4');
+
+    if(type==1){
+      obstacle.y -= player.originalHeight - 10;
+    }
+    obstacles.push(obstacles);
+}
+
+function RandomIntInRange(min, max){
+  return Math.round(Math.random()*(max-min)+min);
+}
+
+function Start(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  ctx.font = "20px sans-serif";
+
+  gameSpeed = 3;
+  gravity = 1;
+
+  score = 0;
+  highscore = 0;
+  if (localStorage.getItem('highscore')) {
+    highscore = localStorage.getItem('highscore');
+  }
+
+  player = new Player(25, 0, 50, 50, '#FF5858');
+
+  scoreText = new Text("Score: " + score, 25, 25, "left", "#212121", "20");
+  highscoreText = new Text("Highscore: " + highscore, canvas.width - 25, 25, "right", "#212121", "20");
+
+  requestAnimationFrame(Update);
 }
